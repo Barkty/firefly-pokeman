@@ -3,9 +3,9 @@ import { axiosInstance } from '@/lib/axios';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: { id: string } }
 ) {
-  const { id } = await params;
+  const { id } = await context.params;
   try {
     const { data } = await axiosInstance.delete(`/favourites/${id}`);
     return NextResponse.json(data);

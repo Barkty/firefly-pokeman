@@ -2,7 +2,6 @@ import { axiosInstance } from './axios';
 import { 
   PokemonListResponse, 
   PokemonSpecies, 
-  EvolutionChain 
 } from '@/types/pokemon';
 
 export const api = {
