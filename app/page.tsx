@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { FilterCard } from '@/components/FilterCard';
 import { _notifyError, _notifySuccess } from '@/lib/utils';
 import { PokemonSkeleton } from '@/components/Skeleton';
+import useStore from '@/hooks/useStore';
 
 export default function Home() {
   const [isOpen, setModalOpen] = useState(false);
@@ -21,10 +22,19 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
+  const { setPokemons, pokemons, favourites, setFavourites } = useStore(store => store);
 
   useEffect(() => {
+    if (pokemons.length > 0 || favorites.length > 0) {
+      setPokemonList(pokemons);
+      if (favourites.length > 0) {
+        setFavorites(favourites);
+      }
+      setLoading(false);
+      return;
+    }
     loadInitialData();
-  }, []);
+  }, [pokemons, favourites]);
 
   const loadInitialData = async () => {
     setLoading(true);
@@ -32,10 +42,12 @@ export default function Home() {
       // Load Pokemon list
       const listData = await clientApi.getPokemonList(150);
       setPokemonList(listData.data);
+      setPokemons(listData.data);
 
       // Load favorites
       const favoritesData = await clientApi.getFavorites();
       setFavorites(favoritesData.data || []);
+      setFavourites(favoritesData.data || []);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       _notifyError(`Failed to load pokemons: ${error.response?.data?.error || error.message}`);
