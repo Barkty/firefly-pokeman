@@ -43,7 +43,7 @@ export default function Home() {
       // Load Pokemon list
       const listData = await clientApi.getPokemonList(150);
       setPokemonList(listData.data);
-      setPokemons(listData.data);
+      setPokemons(listData);
 
       // Load favorites
       const favoritesData = await clientApi.getFavorites();

@@ -1,3 +1,4 @@
+import { IFavourite } from "@/types/favourite";
 import { PokemonListResponse } from "@/types/pokemon";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
@@ -8,7 +9,7 @@ const useStore = create(
       pokemons: [],
       favourites: [],
       setPokemons: (pokemon: PokemonListResponse) => set({ pokemons: pokemon.data }),
-      setFavourites: (pokemon: PokemonListResponse) => set({ favourites: pokemon.data }),
+      setFavourites: (pokemon: IFavourite[]) => set({ favourites: pokemon }),
     }),
     {
       name: "firefly-storage", // unique name
