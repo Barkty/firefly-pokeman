@@ -3,10 +3,10 @@ import { axiosInstance } from '@/lib/axios';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const { data } = await axiosInstance.get(`/pokemons/${id}`);
     return NextResponse.json(data);
   } catch (error) {

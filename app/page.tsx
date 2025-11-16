@@ -11,6 +11,7 @@ import { IFavourite } from '@/types/favourite';
 import Image from 'next/image';
 import { FilterCard } from '@/components/FilterCard';
 import { _notifyError, _notifySuccess } from '@/lib/utils';
+import { PokemonSkeleton } from '@/components/Skeleton';
 
 export default function Home() {
   const [isOpen, setModalOpen] = useState(false);
@@ -134,6 +135,13 @@ export default function Home() {
 
         {/* Results Count */}
         <FilterCard />
+        {(filteredPokemon.length === 0 || loading) && (
+          <div className={`grid grid-cols-2 ${isOpen ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 overflow-x-scroll' : 'md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4'} gap-4`}>
+            {[...Array(8)].map((_, index) => (
+              <PokemonSkeleton key={index} />
+            ))}
+          </div>
+        )}
 
         {/* Pokemon Grid */}
         {filteredPokemon.length > 0 ? (
