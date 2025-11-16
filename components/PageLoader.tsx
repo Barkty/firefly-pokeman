@@ -4,8 +4,8 @@ const styles: React.CSSProperties = {
     position: "absolute",
     top: "50%",
     left: "50%",
-    width: "100%",
-    height: "100%",
+    width: "100vw",
+    height: "100vh",
     background: "white",
     transform: "translate(-50%, -50%)"
 }
@@ -68,7 +68,7 @@ const dots = [
 
 
 export const Loader = ({ extraClass = "" }) => (
-  <div className={`tw-col-span-12 ${extraClass}`} style={{...loaderBlock}}>
+  <div className={`col-span-12 ${extraClass}`} style={{...loaderBlock}}>
     <KeyframesStyle />
     <div style={styles}>
       <div style={roller}>
