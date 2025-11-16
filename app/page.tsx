@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { Button, Spinner, Card, CardBody } from '@heroui/react';
+import { Button, Card, CardBody } from '@heroui/react';
 import { ScanSearch, Funnel } from 'lucide-react';
 import { PokemonCard } from '@/components/PokemonCard';
 import { PokemonModal } from '@/components/PokemonModal';
@@ -13,6 +13,7 @@ import { FilterCard } from '@/components/FilterCard';
 import { _notifyError, _notifySuccess } from '@/lib/utils';
 import { PokemonSkeleton } from '@/components/Skeleton';
 import useStore from '@/hooks/useStore';
+import { Loader } from '@/components/PageLoader';
 
 export default function Home() {
   const [isOpen, setModalOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function Home() {
   const { setPokemons, pokemons, favourites, setFavourites } = useStore(store => store);
 
   useEffect(() => {
-    if (pokemons.length > 0 || favorites.length > 0) {
+    if (pokemons?.length > 0 || favorites?.length > 0) {
       setPokemonList(pokemons);
       if (favourites.length > 0) {
         setFavorites(favourites);
@@ -98,7 +99,8 @@ export default function Home() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Spinner size="lg" />
+        <Loader />
+        {/* <PageLoader /> */}
       </div>
     );
   }
