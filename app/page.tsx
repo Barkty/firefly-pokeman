@@ -28,7 +28,7 @@ export default function Home() {
   useEffect(() => {
     if (pokemons?.length > 0 || favorites?.length > 0) {
       setPokemonList(pokemons);
-      if (favourites.length > 0) {
+      if (favourites?.length > 0) {
         setFavorites(favourites);
       }
       setLoading(false);
