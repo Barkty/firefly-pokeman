@@ -31,7 +31,6 @@ export interface Pokemon {
   id: number;
   name: string;
   imageUrl?: string;
-  url?: string;
   abilities: PokemonAbility[];
   types: string[];
   sprites: PokemonSprites;
