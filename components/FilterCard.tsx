@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { POKEMON_TYPES } from "@/lib/constants";
 import { Select, SelectItem } from "@heroui/react";

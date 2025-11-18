@@ -15,7 +15,6 @@ export default function ModalComponent({ children, modalId = "successModal", siz
   const { modals, setOpenModal } = useStore((state) => state);
   const { width } = useWidthResize();
   const isOpen = modals[modalId];
-  console.log("ModalComponent - isOpen:", isOpen, "modalId:", modalId, modals);
 
   const style = {
     position: "absolute",
