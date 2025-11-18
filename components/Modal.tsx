@@ -1,12 +1,17 @@
 "use state";
 
-import { useEffect } from "react";
+import { JSX, useEffect } from "react";
 import { Box, Modal } from "@mui/material";
 import useStore from "@/hooks/useStore";
 import { useWidthResize } from "@/hooks/useWidth";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function ModalComponent({ children, modalId = "successModal", size = "md" }) {
+type ModalComponentProps = {
+  children: JSX.Element;
+  modalId?: string;
+  size?: "md" | "lg";
+};
+
+export default function ModalComponent({ children, modalId = "successModal", size = "md" }: ModalComponentProps) {
   const { modals, setOpenModal } = useStore((state) => state);
   const { width } = useWidthResize();
   const isOpen = modals[modalId];
