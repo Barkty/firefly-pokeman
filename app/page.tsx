@@ -264,22 +264,27 @@ export default function Home() {
         </div>
 
         {/* Search Card - Fade in and slide up */}
-        <div className={`mb-6 w-full transition-all duration-700 delay-100 ${isInitialLoad ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`}>
-          <Card className="hover:shadow-xl transition-shadow duration-300">
+        <div className={`mb-6 w-full transition-all duration-700 delay-100 ${isInitialLoad ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`} aria-label="Search and Favorites Section">
+          <Card className="hover:shadow-xl transition-shadow duration-300" aria-label="Search and Favorites Card">
             <CardBody className="sm:p-1 md:p-4">
               <div className="flex flex-col md:flex-row gap-4">
                 {/* Search Box with focus animation */}
-                <div className='flex rounded-md justify-between items-center h-[65px] w-full px-3 shadow-[0px_16px_21px_-5px_rgba(163,171,254,0.25)] transition-all duration-300 focus-within:shadow-[0px_16px_24px_-3px_rgba(163,171,254,0.35)] focus-within:scale-[1.01]'>
+                <div
+                  className="flex rounded-md justify-between items-center h-[65px] w-full px-3 shadow-[0px_16px_21px_-5px_rgba(163,171,254,0.25)] transition-all duration-300 focus-within:shadow-[0px_16px_24px_-3px_rgba(163,171,254,0.35)] focus-within:scale-[1.01]"
+                  aria-label="Pokémon Search Box"
+                >
                   <input
                     placeholder="Search Pokémon..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="flex outline-none h-full w-full placeholder:[#AAAAAA] text-gray-700 text-md font-normal"
+                    aria-label="Search Pokémon input"
                   />
-                  <EndContent 
-                    isSearching={isSearching} 
-                    hasValue={searchQuery.length > 0} 
-                    onClear={() => setSearchQuery('')} 
+                  <EndContent
+                    isSearching={isSearching}
+                    hasValue={searchQuery.length > 0}
+                    onClear={() => setSearchQuery('')}
+                    aria-label="Clear search or show loading indicator"
                   />
                 </div>
 
@@ -291,6 +296,7 @@ export default function Home() {
                     startContent={<Funnel className="w-4 h-4" />}
                     size="lg"
                     className={`flex gap-2 bg-[red] border-[red] hover:bg-[#ff4d4d] hover:border-[#ff4d4d] text-white w-[150px] h-[65px] rounded-md justify-center items-center transition-all duration-300 hover:scale-105 hover:shadow-lg ${showFavoritesOnly ? 'animate-pulse' : ''}`}
+                    aria-label={showFavoritesOnly ? "Show all Pokémon" : "Show favorites only"}
                   >
                     Favorites
                   </Button>
@@ -322,16 +328,23 @@ export default function Home() {
         )}
 
         {/* Pokémon Grid - Stagger animation */}
-        <div className={`grid sm:grid-cols-1 ${isOpen ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 overflow-x-scroll' : 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'} gap-4 w-full`}>
+        <div
+          className={`grid sm:grid-cols-1 ${isOpen ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 overflow-x-scroll' : 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'} gap-4 w-full`}
+          role="grid"
+          aria-label="Pokémon cards grid"
+        >
           {filteredPokemon.map((pk, index) => (
             <div
               key={`${pk.name}_${index}`}
               className={`transition-all duration-500 ${isInitialLoad ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`}
-              style={{ 
-                transitionDelay: `${Math.min(index * 50, 1000)}ms`,
-              }}
+              style={{ transitionDelay: `${Math.min(index * 50, 1000)}ms` }}
+              role="gridcell"
+              aria-label={`Grid cell containing ${pk.name} Pokémon card`}
             >
-              <div className="transform transition-all duration-300 hover:scale-105 hover:-translate-y-2">
+              <div
+                className="transform transition-all duration-300 hover:scale-105 hover:-translate-y-2"
+                aria-label={`Interactive container for ${pk.name}`}
+              >
                 <PokemonCard
                   pokemon={pk}
                   isFavorite={favourites.some((f: IFavourite) => f.name === pk.name)}
@@ -342,6 +355,7 @@ export default function Home() {
                     })
                   }
                   onClick={() => handlePokemonClick(pk)}
+                  aria-label={`${pk.name} Pokémon card. ${favourites.some((f: IFavourite) => f.name === pk.name) ? 'Marked as favorite.' : 'Not a favorite.'}`}
                 />
               </div>
             </div>

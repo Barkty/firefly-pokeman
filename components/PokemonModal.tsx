@@ -37,6 +37,7 @@ export function PokemonModal({ pokemon, onClose }: PokemonModalProps) {
     "dragon": Flame,
     // Add more type-icon mappings as needed
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const chipColors = ["primary", "secondary", "success", "warning", "danger", "info"];
 
   if (!pokemon) return null;
@@ -93,27 +94,6 @@ export function PokemonModal({ pokemon, onClose }: PokemonModalProps) {
         </div>
         {chip === 'about' && (
           <div>
-            {/* <div className='space-y-6'>
-              <p className="text-gray-600 font-semibold text-md">Story</p>
-
-            </div> */}
-            {/* <div className='space-y-6'>
-              <p className="text-gray-600 font-semibold text-md">Weakness</p>
-              <div className='w-full flex justify-evenly items-center mb-6'>
-                <Chip
-                  size='md'
-                  variant="solid"
-                  color={chip !== "about" ? "warning" : "default"}
-                  onClick={() => setChip("about")}
-                  classNames={{
-                    base: "bg-linear-to-br from-indigo-500 to-pink-500 border-small border-white/50 shadow-pink-500/30",
-                    content: "drop-shadow-xs shadow-black text-white",
-                  }}
-                >
-                  About
-                </Chip>
-              </div>
-            </div> */}
             <div className='space-y-6 flex'>
               <div>
                 <div className='flex items-center gap-2 mb-2'>
