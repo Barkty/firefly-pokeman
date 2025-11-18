@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IFavourite } from "@/types/favourite";
-import { PokemonListResponse } from "@/types/pokemon";
+import { PokemonListResponse, PokemonSpecies } from "@/types/pokemon";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
@@ -7,8 +8,22 @@ const useStore = create(
   persist(
     (set) => ({
       pokemons: [],
+      pokemon: {},
       favourites: [],
+      modals: {},
+      openModal: false,
       setPokemons: (pokemon: PokemonListResponse) => set({ pokemons: pokemon.data }),
+      setPokemon: (pokemon: PokemonSpecies) => 
+      set((state: any) => ({ 
+        pokemon: { 
+          ...state.pokemon, 
+          [pokemon.name]: pokemon 
+        } 
+      })),
+      setOpenModal: (modalId: string, value: boolean) =>
+        set((state: any) => ({
+          modals: { ...state.modals, [modalId]: value },
+        })),
       setFavourites: (pokemon: IFavourite[]) => set({ favourites: pokemon }),
     }),
     {
@@ -25,7 +40,6 @@ const useStore = create(
         }
         return localStorage;
       }),
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       partialize: (state: any) => ({ 
         pokemons: state.pokemons, // Only persist the pokemons data
       }),

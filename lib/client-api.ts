@@ -34,9 +34,9 @@ apiClient.interceptors.response.use(
 
 export const clientApi = {
   // Get Pokemon list
-  async getPokemonList(limit: number = 150, offset: number = 0): Promise<PokemonListResponse> {
+  async getPokemonList(limit: number = 10, offset: number = 0, name?: string): Promise<PokemonListResponse> {
     const { data } = await apiClient.get<PokemonListResponse>('/pokemons', {
-      params: { limit, offset },
+      params: { limit, offset, name },
     });
     return data;
   },
@@ -48,8 +48,10 @@ export const clientApi = {
   },
 
   // Get Pokemon species
-  async getPokemonSpecies(id: number): Promise<PokemonSpecies> {
-    const { data } = await apiClient.get<PokemonSpecies>(`/pokemon-species/${id}`);
+  async getPokemonTypes(type: string, ability?: string): Promise<PokemonSpecies> {
+    const { data } = await apiClient.get<PokemonSpecies>(`/pokemons/type`, {
+      params: { type, ability },
+    });
     return data;
   },
 

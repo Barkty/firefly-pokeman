@@ -2,14 +2,14 @@
 
 import { Card, CardBody } from '@heroui/react';
 import Image from 'next/image';
-import { Pokemon } from '@/types/pokemon';
+import { PokemonSpecies } from '@/types/pokemon';
 import { formatPokemonId, capitalizeFirstLetter, getTypeColor } from '@/lib/utils';
 import { Heart, Leaf, Bug, Flame, Waves, Wind, Earth, Angry, Snowflake, Ghost, CloudLightning } from 'lucide-react';
 import { createElement, useRef } from 'react';
 import { useScroll, motion } from 'framer-motion';
 
 interface PokemonCardProps {
-  pokemon: Pokemon;
+  pokemon: PokemonSpecies;
   isFavorite: boolean;
   onToggleFavorite: (id: number) => void;
   onClick: () => void;
@@ -74,7 +74,7 @@ export function PokemonCard({ pokemon, isFavorite, onToggleFavorite, onClick }: 
             <div className="flex flex-col items-center">
                 <div className="relative w-[152px] h-[152px] mb-2 bg-gradient-to-b from-blue-50 to-transparent rounded-xl">
                     <Image
-                        src={pokemon.imageUrl as string}
+                        src={pokemon.imageUrl as string || '/pokemon.webp'}
                         alt={pokemon.name}
                         className="object-contain"
                         width={152}
@@ -92,9 +92,9 @@ export function PokemonCard({ pokemon, isFavorite, onToggleFavorite, onClick }: 
 
                     <div className="flex w-full gap-2 flex-wrap justify-center">
                         {pokemon.types.map((type) => (
-                            <div key={type} className={`flex items-center justify-between gap-1 px-2 py-1 border border-[${getTypeColor(type)}] rounded-full`}>
-                                {icons[type as keyof typeof icons] ? createElement(icons[type as keyof typeof icons], { className: "w-4 h-4", color: getTypeColor(type) }) : null }
-                                <p style={{ fontSize: "12px", color: getTypeColor(type) }}>{capitalizeFirstLetter(type)}</p>
+                            <div key={type?.name} className={`flex items-center justify-between gap-1 px-2 py-1 border border-[${getTypeColor(type?.name)}] rounded-full`}>
+                                {icons[type?.name as keyof typeof icons] ? createElement(icons[type?.name as keyof typeof icons], { className: "w-4 h-4", color: getTypeColor(type?.name) }) : null }
+                                <p style={{ fontSize: "12px", color: getTypeColor(type?.name) }}>{capitalizeFirstLetter(type?.name)}</p>
                             </div>
                         ))}
                     </div>

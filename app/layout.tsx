@@ -23,7 +23,6 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className={montserratAlternates.className}>
         <Providers>{children}</Providers>
-        <div className="fixed bottom-0 left-0 w-full h-[18vh] backdrop-blur-md bg-gradient-to-t from-white/40 to-transparent z-50 pointer-events-none"></div>
       </body>
     </html>
   );
